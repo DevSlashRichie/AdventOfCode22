@@ -1,6 +1,3 @@
-use crate::{common, day_2};
-
-
 fn split_by_line(s: &str) -> Vec<&str> {
     s
         .split("\n")

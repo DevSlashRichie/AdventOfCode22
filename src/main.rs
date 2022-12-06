@@ -1,10 +1,9 @@
-mod common;
-
 mod day_1;
 mod day_2;
 mod day_3;
 mod day_4;
 mod day_5;
+mod day_6;
 
 use std::fs;
 
@@ -19,4 +18,5 @@ fn main() {
     day_3::run(read_data("3"));
     day_4::run(read_data("4"));
     day_5::run(read_data("5"));
+    day_6::run(read_data("6"));
 }
