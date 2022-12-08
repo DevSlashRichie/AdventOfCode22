@@ -5,6 +5,7 @@ mod day_4;
 mod day_5;
 mod day_6;
 mod day_7;
+mod day_8;
 
 use std::fs;
 
@@ -21,4 +22,5 @@ fn main() {
     day_5::run(read_data(5));
     day_6::run(read_data(6));
     day_7::run(read_data(7));
+    day_8::run(read_data(8));
 }
