@@ -40,15 +40,15 @@ impl From<&str> for Direction {
 }
 
 struct Rope {
-    head: Body,
-    tail: Vec<Body>,
+    head: Knot,
+    tail: Vec<Knot>,
     visited: HashSet<(i32, i32)>,
 }
 
 #[derive(Debug)]
-struct Body(i32, i32);
+struct Knot(i32, i32);
 
-impl Body {
+impl Knot {
     fn new() -> Self {
         Self(0, 0)
     }
@@ -66,9 +66,9 @@ impl Body {
         (self.0, self.1)
     }
 
-    fn compare(&self, other: &Body) -> Option<Body> {
+    fn adjust_position(&self, reference: &Knot) -> Option<Knot> {
         let (x1, y1) = self.into_tuple();
-        let (x2, y2) = other.into_tuple();
+        let (x2, y2) = reference.into_tuple();
 
         let x = (x2 as f64 - x1 as f64).abs();
         let y = (y2 as f64 - y1 as f64).abs();
@@ -78,9 +78,9 @@ impl Body {
         let new_y = if y1 < y2 { y2 - 1 } else { y2 + 1 };
 
         match (x, y) {
-            (x, y) if x >= 2.0 && y >= 2.0 => Some(Body(new_x, new_y)),
-            (x, _) if x >= 2.0 => Some(Body(new_x, y2)),
-            (_, y) if y >= 2.0 => Some(Body(x2, new_y)),
+            (x, y) if x >= 2.0 && y >= 2.0 => Some(Knot(new_x, new_y)),
+            (x, _) if x >= 2.0 => Some(Knot(new_x, y2)),
+            (_, y) if y >= 2.0 => Some(Knot(x2, new_y)),
             _ => None,
         }
     }
@@ -96,17 +96,17 @@ impl Rope {
         let visited = HashSet::from_iter([(0, 0)]);
         let tail = (0..size)
             .into_iter()
-            .map(|_| Body::new())
+            .map(|_| Knot::new())
             .collect();
 
         Rope {
             visited,
-            head: Body::new(),
+            head: Knot::new(),
             tail,
         }
     }
 
-    fn last_body(&self) -> &Body {
+    fn last_body(&self) -> &Knot {
         self.tail.last().unwrap()
     }
 
@@ -129,7 +129,7 @@ impl Rope {
                         &self.head
                     };
 
-                    self.tail[i].compare(before)
+                    self.tail[i].adjust_position(before)
                 };
 
                 if let Some(pos) = updated_position {
