@@ -1,16 +1,16 @@
 #[derive(Debug, Clone)]
 struct Boat {
     lines: Vec<Vec<char>>,
-    instructions: Vec<Vec<u32>>
+    instructions: Vec<Vec<u32>>,
 }
 
 fn parse(input: &str) -> Boat {
     let lines = input.lines();
 
     let mut index = 0;
-    let mut boat = Boat { 
+    let mut boat = Boat {
         lines: Vec::new(),
-        instructions: Vec::new()
+        instructions: Vec::new(),
     };
 
     let mut instructions = false;
@@ -40,10 +40,8 @@ fn parse(input: &str) -> Boat {
                 instruction_buffer.push(buffer.parse().unwrap());
             }
 
-
             boat.instructions.push(instruction_buffer.clone());
             instruction_buffer.clear();
-
         } else {
             let mut cursor = 0;
             for char in line.chars() {
@@ -94,7 +92,6 @@ fn arrange(boat: &mut Boat, mantain_order: bool) {
                 to.extend(buffer);
             }
         }
-
     }
 }
 

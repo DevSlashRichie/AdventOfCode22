@@ -7,7 +7,8 @@ fn find_candidate_to_free_space(folders: &HashMap<String, u64>) -> u64 {
     let total_used = folders.get("/").unwrap();
     let space_left = TOTAL_SPACE - total_used;
 
-    *folders.values()
+    *folders
+        .values()
         .filter(|v| space_left + **v >= REQUIRED_SPACE)
         .min()
         .unwrap()
@@ -43,12 +44,10 @@ pub fn run(input: String) {
         }
     }
 
-    let sum = folders.values()
-        .filter(|v| v <= &&100000)
-        .sum::<u64>();
+    let sum = folders.values().filter(|v| v <= &&100000).sum::<u64>();
 
     let to_free = find_candidate_to_free_space(&folders);
-    
+
     println!("Day 7:");
     println!("  Part 1: {}", sum);
     println!("  Part 2: {}", to_free);

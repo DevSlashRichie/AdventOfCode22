@@ -1,4 +1,3 @@
-
 type Matrix = Vec<Vec<u32>>;
 
 fn get_rows(with: &Matrix, at: (usize, usize)) -> (Vec<u32>, Vec<u32>) {
@@ -11,20 +10,14 @@ fn get_rows(with: &Matrix, at: (usize, usize)) -> (Vec<u32>, Vec<u32>) {
 }
 
 fn get_columns(with: &Matrix, at: (usize, usize)) -> (Vec<u32>, Vec<u32>) {
-    let before = with[..at.1]
-        .iter()
-        .map(|x| x[at.0])
-        .collect();
+    let before = with[..at.1].iter().map(|x| x[at.0]).collect();
 
-    let after = with[at.1 + 1..]
-        .iter()
-        .map(|x| x[at.0])
-        .collect();
+    let after = with[at.1 + 1..].iter().map(|x| x[at.0]).collect();
 
     (before, after)
 }
 
-fn count(with: impl IntoIterator<Item=u32>, at: u32) -> usize {
+fn count(with: impl IntoIterator<Item = u32>, at: u32) -> usize {
     let mut steps = 0;
 
     let iter = with.into_iter();
@@ -46,7 +39,6 @@ fn count_steps_until_bigger(with: &Vec<u32>, at: u32, rev: bool) -> usize {
     } else {
         count(with.clone(), at)
     }
-
 }
 
 fn get_scenic_score(rows: (&Vec<u32>, &Vec<u32>), columns: (&Vec<u32>, &Vec<u32>), at: u32) -> u32 {
@@ -57,7 +49,6 @@ fn get_scenic_score(rows: (&Vec<u32>, &Vec<u32>), columns: (&Vec<u32>, &Vec<u32>
     let top_column = count_steps_until_bigger(columns.0, at, true);
 
     let bottom_column = count_steps_until_bigger(columns.1, at, false);
-
 
     let score = left_row * right_row * top_column * bottom_column;
 
@@ -110,12 +101,15 @@ pub fn run(input: String) {
             }
 
             // Part 2
-            let scenic_score = get_scenic_score((&before_row, &after_row), (&before_column, &after_column), current);
+            let scenic_score = get_scenic_score(
+                (&before_row, &after_row),
+                (&before_column, &after_column),
+                current,
+            );
             if scenic_score > biggest_senic_score {
                 biggest_senic_score = scenic_score;
             }
         }
-
     }
 
     println!("Day 8:");

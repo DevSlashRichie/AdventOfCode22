@@ -1,5 +1,5 @@
 const DRAW: &i32 = &3;
-const WIN : &i32 = &6;
+const WIN: &i32 = &6;
 
 #[derive(Clone, Debug, PartialEq)]
 enum Tool {
@@ -36,7 +36,6 @@ impl From<&str> for State {
 }
 
 impl Tool {
-
     fn opposite(&self) -> Self {
         match self {
             Tool::Rock => Tool::Paper,
@@ -44,7 +43,7 @@ impl Tool {
             Tool::Scissors => Tool::Rock,
         }
     }
-    
+
     fn find(&self, state: &State) -> Self {
         match state {
             State::Draw => self.clone(),
@@ -72,7 +71,6 @@ impl Tool {
 }
 
 impl From<&str> for Tool {
-
     fn from(s: &str) -> Self {
         match s {
             "X" | "A" => Tool::Rock,
@@ -100,13 +98,12 @@ fn get_games(input: &str) -> Vec<Game> {
             }
         })
         .collect::<Vec<_>>()
-
 }
 
 pub fn run(input: String) {
     let games = get_games(&input);
 
-    let mut a= 0;
+    let mut a = 0;
     let mut b = 0;
     for game in &games {
         let player_b: Tool = game.secret_b.as_str().into();

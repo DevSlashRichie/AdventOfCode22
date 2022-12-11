@@ -59,7 +59,7 @@ impl Knot {
             Direction::Down(_) => self.0 -= 1,
             Direction::Left(_) => self.1 -= 1,
             Direction::Right(_) => self.1 += 1,
-        }  
+        }
     }
 
     fn into_tuple(&self) -> (i32, i32) {
@@ -84,7 +84,6 @@ impl Knot {
             _ => None,
         }
     }
-    
 }
 
 impl Rope {
@@ -94,10 +93,7 @@ impl Rope {
         }
 
         let visited = HashSet::from_iter([(0, 0)]);
-        let tail = (0..size)
-            .into_iter()
-            .map(|_| Knot::new())
-            .collect();
+        let tail = (0..size).into_iter().map(|_| Knot::new()).collect();
 
         Rope {
             visited,
@@ -123,11 +119,7 @@ impl Rope {
 
             for i in 0..self.tail.len() {
                 let updated_position = {
-                    let before = if i > 0 {
-                        &self.tail[i - 1]
-                    } else {
-                        &self.head
-                    };
+                    let before = if i > 0 { &self.tail[i - 1] } else { &self.head };
 
                     self.tail[i].adjust_position(before)
                 };
@@ -154,7 +146,6 @@ pub fn run(input: String) {
 
     let mut part_2 = Rope::new(9);
     part_2.trasverse_commands(&commands);
-
 
     println!("Day 9:");
     println!("  Part 1: {}", part_1.visited.len());

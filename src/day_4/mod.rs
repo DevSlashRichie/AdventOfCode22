@@ -1,5 +1,4 @@
-use std::ops::{RangeInclusive};
-
+use std::ops::RangeInclusive;
 
 #[derive(Debug)]
 struct Pair {
@@ -8,18 +7,17 @@ struct Pair {
 }
 
 impl Pair {
-
     fn intersect(&self) -> bool {
         self.range_b.start() >= self.range_a.start() && self.range_b.end() <= self.range_a.end()
-        || self.range_a.start() >= self.range_b.start() && self.range_a.end() <= self.range_b.end()
+            || self.range_a.start() >= self.range_b.start()
+                && self.range_a.end() <= self.range_b.end()
     }
 
     fn overlap(&self) -> bool {
         self.range_a.start() <= self.range_b.start() && self.range_a.end() >= self.range_b.start()
-        || self.range_b.start() <= self.range_a.start() && self.range_b.end() >= self.range_a.start()
+            || self.range_b.start() <= self.range_a.start()
+                && self.range_b.end() >= self.range_a.start()
     }
-    
-
 }
 
 fn parse_range(pair: &str) -> RangeInclusive<i32> {
@@ -35,7 +33,8 @@ fn parse_range(pair: &str) -> RangeInclusive<i32> {
 }
 
 fn parse_pairs(input: &str) -> Vec<Pair> {
-    input.lines()
+    input
+        .lines()
         .map(|line| {
             let mut parts = line.split(",");
             Pair {
@@ -49,16 +48,12 @@ fn parse_pairs(input: &str) -> Vec<Pair> {
 pub fn run(input: String) {
     let pairs = parse_pairs(&input);
 
-    let intersect = pairs.iter()
-        .filter(|pair| pair.intersect())
-        .count();
+    let intersect = pairs.iter().filter(|pair| pair.intersect()).count();
 
     println!("Day 4:");
     println!("  {}", intersect);
 
-    let overlap = pairs.iter()
-        .filter(|pair| pair.overlap())
-        .count();
-    
+    let overlap = pairs.iter().filter(|pair| pair.overlap()).count();
+
     println!("  {}", overlap);
 }

@@ -111,7 +111,6 @@ impl Crt {
 
         self.current_pixel += 1;
     }
-
 }
 
 impl std::fmt::Display for Crt {
@@ -151,7 +150,8 @@ pub fn run(input: String) {
     let mut commands = commands.into_iter();
 
     // We use BTreemap to keep the order of the keys - I want the order just because yes
-    let mut strength_tracker = BTreeMap::from([(20, 0), (60, 0), (100, 0), (140, 0), (180, 0), (220, 0)]);
+    let mut strength_tracker =
+        BTreeMap::from([(20, 0), (60, 0), (100, 0), (140, 0), (180, 0), (220, 0)]);
 
     let mut cycle_counter = 0;
 
@@ -189,8 +189,7 @@ pub fn run(input: String) {
                 crt.set_sprite(register.try_into().unwrap_or(1));
                 cycle_tracker = None;
             }
-        }// End of the cycle
-
+        } // End of the cycle
     }
 
     println!("Day 10:");

@@ -1,4 +1,4 @@
-use std::collections::{HashSet};
+use std::collections::HashSet;
 
 const ABC: &str = "abcdefghijklmnopqrstuvwxyz";
 
@@ -14,9 +14,9 @@ impl Rucksack {
     }
 }
 
-
 fn prepare_rucksacks(input: &str) -> Vec<Rucksack> {
-    input.lines()
+    input
+        .lines()
         .map(|line| {
             let half = line.len() / 2;
             Rucksack {
@@ -44,22 +44,24 @@ fn get_weight(letter: char) -> usize {
 pub fn run(input: String) {
     let rucksacks = prepare_rucksacks(&input);
 
-    let repeated_letters = rucksacks.iter()
+    let repeated_letters = rucksacks
+        .iter()
         .filter_map(|r| {
             let set = r.first.chars().collect::<HashSet<_>>();
 
-            let repeated = r.second.chars()
+            let repeated = r
+                .second
+                .chars()
                 .filter(|c| set.contains(c))
                 .collect::<Vec<_>>();
-            
+
             repeated.first().copied()
         })
         .collect::<Vec<_>>();
 
-    let weight = repeated_letters.iter()
-        .map(|c| {
-            get_weight(*c)
-        })
+    let weight = repeated_letters
+        .iter()
+        .map(|c| get_weight(*c))
         .sum::<usize>();
 
     println!("Day 3:");
@@ -72,7 +74,8 @@ pub fn run(input: String) {
     for group in groups {
         let first = group[0].total().chars().collect::<HashSet<_>>();
 
-        let repeated = &group[1..].iter()
+        let repeated = &group[1..]
+            .iter()
             .fold(first, |acc, x| {
                 acc.intersection(&x.total().chars().collect::<HashSet<_>>())
                     .copied()
@@ -85,6 +88,5 @@ pub fn run(input: String) {
         total += repeated;
     }
 
-
-        println!("  Part 2: {}", total);
+    println!("  Part 2: {}", total);
 }
