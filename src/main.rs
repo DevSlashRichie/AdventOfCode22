@@ -1,6 +1,7 @@
 mod day_1;
 mod day_10;
 mod day_11;
+mod day_12;
 mod day_2;
 mod day_3;
 mod day_4;
@@ -28,7 +29,8 @@ fn run_normal() {
     // day_8::run(read_data(8));
     // day_9::run(read_data(9));
     // day_10::run(read_data(10));
-    day_11::run(read_data(11));
+    // day_11::run(read_data(11));
+    day_12::run(read_data(12));
 }
 
 fn main() {

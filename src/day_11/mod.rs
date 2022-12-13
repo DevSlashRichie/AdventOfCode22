@@ -1,4 +1,4 @@
-use std::{collections::VecDeque, thread::current};
+use std::collections::VecDeque;
 
 #[derive(Debug, Default, Clone)]
 struct TestResult {
@@ -20,18 +20,10 @@ impl Default for OperationType {
     }
 }
 
-fn eval_number(a: i64, with: u64) -> u64 {
-    if a < 0 {
-        with
-    } else {
-        a.try_into().unwrap()
-    }
-}
-
 fn execute_operation(t: (i64, i64, u64), f: impl FnOnce(u64, u64) -> u64) -> u64 {
     let with = t.2;
-    let a = eval_number(t.0, with);
-    let b = eval_number(t.1, with);
+    let a = t.0.try_into().unwrap_or(with);
+    let b = t.1.try_into().unwrap_or(with);
     f(a, b)
 }
 
